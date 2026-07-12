@@ -1,12 +1,13 @@
 import { Link, useRouterState } from "@tanstack/react-router";
 import {
   LayoutDashboard, FolderSearch, Network, Clock, Map,
-  Bot, Bell, FileBarChart, Settings, ShieldHalf,
+  Bot, Bell, FileBarChart, Settings, ShieldHalf, Leaf,
 } from "lucide-react";
 import { motion } from "framer-motion";
 
 const items = [
   { to: "/", label: "Command Center", icon: LayoutDashboard },
+  { to: "/ecosphere", label: "EcoSphere ESG", icon: Leaf },
   { to: "/cases", label: "Cases", icon: FolderSearch },
   { to: "/cases/MG-101", label: "Investigation Graph", icon: Network },
   { to: "/timeline", label: "Timeline Replay", icon: Clock },
@@ -28,7 +29,12 @@ export function Sidebar() {
         </Link>
 
         {items.map(({ to, label, icon: Icon }) => {
-          const active = to === "/" ? path === "/" : path.startsWith(to.split("/").slice(0,2).join("/"));
+          const active =
+            to === "/"
+              ? path === "/"
+              : to === "/ecosphere"
+                ? path.startsWith("/ecosphere")
+                : path.startsWith(to.split("/").slice(0, 2).join("/"));
           return (
             <Link key={to} to={to} className="group relative">
               <motion.div

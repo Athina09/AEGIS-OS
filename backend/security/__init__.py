@@ -1,5 +1,7 @@
 """AES-256-GCM security for AEGIS backend."""
 
+from security.encryption import Aes256GcmCipher, EncryptionError
+from security.secure_store import SecureDatabase
 from security.crypto import (
     AES256_ALGORITHM,
     decrypt_bytes,
@@ -24,6 +26,9 @@ from security.data import (
 from security.models import SecurityField
 
 __all__ = [
+    "Aes256GcmCipher",
+    "EncryptionError",
+    "SecureDatabase",
     "AES256_ALGORITHM",
     "AUTOPSIES_FILE",
     "ENCRYPTED_DIR",
