@@ -1,38 +1,55 @@
-# Hacksprint 6.0
+# AEGIS — Forensic Command Center
 
-Monorepo for hackathon projects. The active submission here is **EcoSphere** (Odoo Hackathon ESG platform).
+AES-256 encrypted investigation platform: autopsy records, evidence RAG search, case timelines, movement traces, and AI copilot.
 
-## EcoSphere — quick start
+**Repo:** [github.com/Athina09/Hacksprint6.0](https://github.com/Athina09/Hacksprint6.0)
+
+## Quick start
 
 ```bash
-cd Odoo-Hackathon-
-npm run install:frontend
+# Frontend
+npm install
 npm run dev
+# → http://localhost:8080/
+
+# Backend (separate terminal)
+cd backend
+python3 -m venv .venv
+source .venv/bin/activate   # Windows: .venv\Scripts\activate
+pip install -r requirements.txt
+cp ../.env.example ../.env  # set DATABASE_ENCRYPTION_KEY
+uvicorn main:app --host 127.0.0.1 --port 8000 --reload
+# → http://127.0.0.1:8000/docs
 ```
 
-Open **http://localhost:8090/login**
+Or start everything together:
 
-Full docs: [Odoo-Hackathon-/README.md](./Odoo-Hackathon-/README.md)
+```bash
+npm run dev:all
+```
 
-## Login & passwords
+| Service | URL |
+|---------|-----|
+| AEGIS UI | http://localhost:8080/ |
+| API | http://127.0.0.1:8000 |
+| API docs | http://127.0.0.1:8000/docs |
+| RAG dashboard | http://localhost:8501 (when Streamlit is running) |
 
-Passwords are **per role** (same password for every account in that role).
+## What's included
 
-| Role | Name | Email | Password |
-|------|------|-------|----------|
-| Super Admin | Priya Natarajan | `superadmin@ecosphere.in` | `admin123` |
-| ESG Manager | Alex Morgan | `alex.morgan@ecosphere.in` | `manager` |
-| Department Manager | John Carter (Manufacturing) | `john.carter@ecosphere.in` | `dept123` |
-| Department Manager | Emily Watson (HR) | `emily.watson@ecosphere.in` | `dept123` |
-| Department Manager | Michael Brown (Finance) | `michael.brown@ecosphere.in` | `dept123` |
-| Employee | Sarah Johnson | `sarah.j@ecosphere.in` | `employee` |
-| Employee | David Wilson | `david.w@ecosphere.in` | `employee` |
+| Area | Details |
+|------|---------|
+| **Command Center** | Stats, risk map, live feed, case table |
+| **Cases** | Investigation graph, hypotheses, autopsy panel, timeline |
+| **Copilot** | Vector evidence search over encrypted index |
+| **Heatmap / Alerts / Reports** | Investigation support views |
+| **Settings** | AES-256 encryption status |
+| **Backend** | FastAPI + encrypted stores (`autopsies`, `evidence`, `timelines`, `movement`) |
 
-**Quick copy:** `superadmin@ecosphere.in` / `admin123` (Super Admin)
+## Encryption
 
-| Role | Password |
-|------|----------|
-| Super Admin | `admin123` |
-| ESG Manager | `manager` |
-| Department Manager | `dept123` |
-| Employee | `employee` |
+All database files are encrypted at rest with **AES-256-GCM**. Set `DATABASE_ENCRYPTION_KEY` in `.env` (32+ character secret). See [backend/README.md](./backend/README.md).
+
+## Stack
+
+React 19 · TanStack Router · Vite · Tailwind · FastAPI · cryptography (AES-256-GCM) · Streamlit RAG eval

@@ -21,12 +21,17 @@ from security.data import (
     load_autopsies,
     seed_autopsies,
 )
+from security.encryption import Aes256GcmCipher, EncryptionError
 from security.models import SecurityField
+from security.secure_store import SecureDatabase
 
 __all__ = [
     "AES256_ALGORITHM",
     "AUTOPSIES_FILE",
+    "Aes256GcmCipher",
     "ENCRYPTED_DIR",
+    "EncryptionError",
+    "SecureDatabase",
     "SecurityField",
     "decrypt_bytes",
     "decrypt_json",
